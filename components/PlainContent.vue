@@ -6,7 +6,7 @@
           <li>
             <NuxtLink to="/">トップ</NuxtLink>
           </li>
-          <li>{{ response.details.subject }}</li>
+          <li>{{ subject }}</li>
         </ul>
       </div>
     </nav>
@@ -14,7 +14,7 @@
     <div class="l-container--middle l-container--contents">
       <article>
         <div class="topics_contents">
-          <div v-html="response.details.contents"></div>
+          <div v-html="contents"></div>
           <div class="clr"></div>
         </div>
       </article>
@@ -24,14 +24,15 @@
 
 <script>
 export default {
-  async asyncData({ $axios, route }) {
-    return {
-      response: await $axios.$get(`/rcms-api/1/preview`, {
-        params: {
-          preview_token: route.query.preview_token,
-        },
-      }),
-    };
+  props: {
+    subject: {
+      type: String,
+      required: true,
+    },
+    contents: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
